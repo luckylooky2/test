@@ -9,99 +9,103 @@
     <button onclick="speak()">click</button>
   </body>
   <script>
-    // function playTTS(word) {
-    //   const synth = window.speechSynthesis;
-    //   const utterThis = new SpeechSynthesisUtterance(word);
-    //   utterThis.lang = "ja-JP";
-    //   utterThis.rate = 0.5;
+    function playTTS(word) {
+      const synth = window.speechSynthesis;
+      const voices = _speechSynth
+        .getVoices()
+        .filter((voice) => voice.lang === "ja-JP");
+      const utterThis = new SpeechSynthesisUtterance(word);
+      utterThis.voice = voices[0];
+      utterThis.lang = "ja-JP";
+      utterThis.rate = 0.5;
 
-    //   synth.speak(utterThis);
+      synth.speak(utterThis);
+    }
+
+    function handleClick() {
+      playTTS("借りる");
+      playTTS("合格");
+      playTTS("踏み出す");
+    }
+
+    const button = document
+      .querySelector("button")
+      .addEventListener("click", handleClick);
+
+    // let _speechSynth;
+    // let _voices;
+    // const _cache = {};
+
+    // /**
+    //  * retries until there have been voices loaded. No stopper flag included in this example.
+    //  * Note that this function assumes, that there are voices installed on the host system.
+    //  */
+
+    // function loadVoicesWhenAvailable(onComplete = () => {}) {
+    //   _speechSynth = window.speechSynthesis;
+    //   const voices = _speechSynth.getVoices();
+
+    //   if (voices.length !== 0) {
+    //     _voices = voices;
+    //     onComplete();
+    //   } else {
+    //     return setTimeout(function () {
+    //       loadVoicesWhenAvailable(onComplete);
+    //     }, 100);
+    //   }
     // }
 
-    // function handleClick() {
-    //   playTTS("借りる");
-    //   playTTS("合格");
-    //   playTTS("踏み出す");
+    // /**
+    //  * Returns the first found voice for a given language code.
+    //  */
+
+    // function getVoices(locale) {
+    //   if (!_speechSynth) {
+    //     throw new Error("Browser does not support speech synthesis");
+    //   }
+    //   if (_cache[locale]) return _cache[locale];
+
+    //   _cache[locale] = _voices.filter((voice) => voice.lang === locale);
+    //   return _cache[locale];
     // }
 
-    // const button = document
-    //   .querySelector("button")
-    //   .addEventListener("click", handleClick);
+    // /**
+    //  * Speak a certain text
+    //  * @param locale the locale this voice requires
+    //  * @param text the text to speak
+    //  * @param onEnd callback if tts is finished
+    //  */
 
-    let _speechSynth;
-    let _voices;
-    const _cache = {};
+    // function playByText(locale, text, onEnd) {
+    //   const voices = getVoices(locale);
 
-    /**
-     * retries until there have been voices loaded. No stopper flag included in this example.
-     * Note that this function assumes, that there are voices installed on the host system.
-     */
+    //   // TODO load preference here, e.g. male / female etc.
+    //   // TODO but for now we just use the first occurrence
+    //   const utterance = new window.SpeechSynthesisUtterance();
+    //   utterance.voice = voices[0];
+    //   utterance.pitch = 1;
+    //   utterance.voiceURI = "native";
+    //   utterance.volume = 1;
+    //   utterance.rate = 0.8;
+    //   utterance.pitch = 0.8;
+    //   utterance.text = text;
+    //   utterance.lang = locale;
 
-    function loadVoicesWhenAvailable(onComplete = () => {}) {
-      _speechSynth = window.speechSynthesis;
-      const voices = _speechSynth.getVoices();
+    //   if (onEnd) {
+    //     utterance.onend = onEnd;
+    //   }
 
-      if (voices.length !== 0) {
-        _voices = voices;
-        onComplete();
-      } else {
-        return setTimeout(function () {
-          loadVoicesWhenAvailable(onComplete);
-        }, 100);
-      }
-    }
+    //   _speechSynth.cancel(); // cancel current speak, if any is running
+    //   _speechSynth.speak(utterance);
+    // }
 
-    /**
-     * Returns the first found voice for a given language code.
-     */
+    // // on document ready
+    // loadVoicesWhenAvailable(function () {
+    //   console.log("loaded");
+    // });
 
-    function getVoices(locale) {
-      if (!_speechSynth) {
-        throw new Error("Browser does not support speech synthesis");
-      }
-      if (_cache[locale]) return _cache[locale];
-
-      _cache[locale] = _voices.filter((voice) => voice.lang === locale);
-      return _cache[locale];
-    }
-
-    /**
-     * Speak a certain text
-     * @param locale the locale this voice requires
-     * @param text the text to speak
-     * @param onEnd callback if tts is finished
-     */
-
-    function playByText(locale, text, onEnd) {
-      const voices = getVoices(locale);
-
-      // TODO load preference here, e.g. male / female etc.
-      // TODO but for now we just use the first occurrence
-      const utterance = new window.SpeechSynthesisUtterance();
-      utterance.voice = voices[1];
-      utterance.pitch = 1;
-      utterance.voiceURI = "native";
-      utterance.volume = 1;
-      utterance.rate = 0.8;
-      utterance.pitch = 0.8;
-      utterance.text = text;
-      utterance.lang = locale;
-
-      if (onEnd) {
-        utterance.onend = onEnd;
-      }
-
-      _speechSynth.cancel(); // cancel current speak, if any is running
-      _speechSynth.speak(utterance);
-    }
-
-    // on document ready
-    loadVoicesWhenAvailable(function () {
-      console.log("loaded");
-    });
-
-    function speak() {
-      setTimeout(() => playByText("ja-JP", "踏み出す"), 300);
-    }
+    // function speak() {
+    //   setTimeout(() => playByText("ja-JP", "踏み出す"), 300);
+    // }
   </script>
 </html>
