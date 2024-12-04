@@ -9,20 +9,20 @@
     <button onclick="speak()">click</button>
   </body>
   <script>
-    function playTTS(word) {
-      const synth = window.speechSynthesis;
-      const utterThis = new SpeechSynthesisUtterance(word);
-      utterThis.lang = "ja-JP";
-      utterThis.rate = 0.5;
+    // function playTTS(word) {
+    //   const synth = window.speechSynthesis;
+    //   const utterThis = new SpeechSynthesisUtterance(word);
+    //   utterThis.lang = "ja-JP";
+    //   utterThis.rate = 0.5;
 
-      synth.speak(utterThis);
-    }
+    //   synth.speak(utterThis);
+    // }
 
-    function handleClick() {
-      playTTS("借りる");
-      playTTS("合格");
-      playTTS("踏み出す");
-    }
+    // function handleClick() {
+    //   playTTS("借りる");
+    //   playTTS("合格");
+    //   playTTS("踏み出す");
+    // }
 
     // const button = document
     //   .querySelector("button")
@@ -78,12 +78,11 @@
       // TODO load preference here, e.g. male / female etc.
       // TODO but for now we just use the first occurrence
       const utterance = new window.SpeechSynthesisUtterance();
-      utterance.voice = voices[0];
+      utterance.voice = voices[1];
       utterance.pitch = 1;
-      utterance.rate = 1;
       utterance.voiceURI = "native";
       utterance.volume = 1;
-      utterance.rate = 1;
+      utterance.rate = 0.8;
       utterance.pitch = 0.8;
       utterance.text = text;
       utterance.lang = locale;
@@ -97,9 +96,9 @@
     }
 
     // on document ready
-    loadVoicesWhenAvailable(function () {
-      console.log("loaded");
-    });
+    // loadVoicesWhenAvailable(function () {
+    //   console.log("loaded");
+    // });
 
     function speak() {
       setTimeout(() => playByText("ja-JP", "踏み出す"), 300);
