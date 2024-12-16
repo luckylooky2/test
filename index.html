@@ -32,6 +32,9 @@
 
     setInterval(() => {
       console.log(window.innerWidth, window.innerHeight);
+      console.log("max width 480px", window.matchMedia("(max-width: 480px)"));
+      console.log("max width 360px", window.matchMedia("(max-width: 360px)"));
+      console.log("max width 240px", window.matchMedia("(max-width: 240px)"));
     }, 1000);
 
     const button = document
