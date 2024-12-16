@@ -14,8 +14,8 @@
       const voices = synth
         .getVoices()
         .filter((voice) => voice.lang === "ja-JP");
-      console.log(voices);
       const utterThis = new SpeechSynthesisUtterance(word);
+      // voice를 직접 설정하지 않아서 발생했던 문제
       utterThis.voice = voices[0];
       utterThis.lang = "ja-JP";
       utterThis.rate = 0.5;
@@ -27,6 +27,8 @@
       playTTS("借りる");
       playTTS("合格");
       playTTS("踏み出す");
+
+      console.log(window.innerWidth, window.innerHeight);
     }
 
     const button = document
